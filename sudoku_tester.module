@@ -1,0 +1,246 @@
+<?php
+
+/**
+ * @file
+ * Contains sudoku_tester.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function sudoku_tester_help($route_name, RouteMatchInterface $route_match) {
+
+  $valid_sudokus[] = [
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 7, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9],
+  ];
+  $valid_sudokus[] = [
+    [7, 2, 6, 4, 9, 3, 8, 1, 5],
+    [3, 1, 5, 7, 2, 8, 9, 4, 6],
+    [4, 8, 9, 6, 5, 1, 2, 3, 7],
+    [8, 5, 2, 1, 4, 7, 6, 9, 3],
+    [6, 7, 3, 9, 8, 5, 1, 2, 4],
+    [9, 4, 1, 3, 6, 2, 7, 5, 8],
+    [1, 9, 4, 8, 3, 6, 5, 7, 2],
+    [5, 6, 7, 2, 1, 4, 3, 8, 9],
+    [2, 3, 8, 5, 7, 9, 4, 6, 1],
+  ];
+
+  $invalid_sudokus[] = [
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 9, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 7, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, 9],
+  ];
+  $invalid_sudokus[] = [
+    [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 0, 1, 1, 0, 0],
+    [0, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  ];
+
+  switch ($route_name) {
+    // Main module help for the sudoku_tester module.
+    case 'help.page.sudoku_tester':
+
+      foreach ($valid_sudokus as $valid_sudoku) {
+        echo is_sudoku($valid_sudoku) ? "PASSED\n\r" : "FAILED\n\r";
+      }
+
+      foreach ($invalid_sudokus as $invalid_sudoku) {
+        echo is_sudoku($invalid_sudoku) ? "PASSED\n\r" : "FAILED\n\r";
+      }
+
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('A simple sudoku matrix tester') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Validate a Sudoku.
+ *
+ * @param int[][] $sudoku
+ *   A 9x9 matrix of integers from 1-9 (inclusive).
+ *
+ * @return bool
+ *   TRUE if the sudoku is a valid, complete solution, otherwise FALSE.
+ */
+function is_sudoku(array $sudoku) {
+
+  // Check the row and col values to ensure no duplicates
+  $check_row = check_sudoku_row($sudoku);
+  $check_col = check_sudoku_col($sudoku);
+
+  if (!$check_row & !$check_col) return FALSE;
+
+  // Check the 3x3 grids now to ensure they all have 1 through 9 in their respective blocks.
+  $check_blocks = check_sudoku_blocks($sudoku);
+
+  return $check_row & $check_col & $check_blocks;
+}
+
+/**
+ * Helper function to return boolean result on a row
+ *
+ * @param array $sudoku
+ *
+ * @param $sudoku_map
+ *
+ * @return bool
+ *    TRUE or FALSE whether rows checkout
+ *
+ */
+function check_sudoku_row(array $sudoku) {
+
+  // check all rows for any duplicate values between 1 and 9
+  for ($row = 0; $row < 9; $row++) {
+
+    // instantiate a map table to note where false entries are.
+    $sudoku_checkmap = 0;
+
+    for ($col = 0; $col < 9; $col++) {
+      $check_num = $sudoku[$row][$col];
+
+      // let's check to ensure values in the matrix are in fact integer between 1 and 9
+      if ((1 <= $check_num) && ($check_num <= 9)) {
+
+        // fill the mask row with bit values between 1 and 9
+        $row_mask = (int)pow(2, $check_num);
+
+        // now we do some bitwise operations
+        // check the checkmap and row_mask aren't yet set, if they are we have
+        // a duplicate number and we fail the row check
+        if ( ($row_mask & $sudoku_checkmap) == 0) {
+          $sudoku_checkmap = $sudoku_checkmap | $row_mask;
+        } else {
+          return FALSE;
+        }
+
+      }
+    }
+  }
+  return TRUE;
+}
+
+/**
+ * Helper function to return boolean result on a col
+ *
+ * @param array $sudoku
+ *
+ * @param $sudoku_map
+ *
+ * @return bool
+ *    TRUE or FALSE whether columns checkout
+ *
+ */
+function check_sudoku_col(array $sudoku) {
+
+  // check all cols for any duplicate values between 1 and 9
+  for ($col = 0; $col < 9; $col++) {
+
+    // instantiate a map table to note where false entries are.
+    $sudoku_checkmap = 0;
+
+    for ($row = 0; $row < 9; $row++) {
+      $check_num = $sudoku[$row][$col];
+
+      // let's check to ensure values in the matrix are in fact integer between 1 and 9
+      if ((1 <= $check_num) && ($check_num <= 9)) {
+
+        // fill the mask col with bit values between 1 and 9
+        $col_mask = (int)pow(2, $check_num);
+
+        // now we do some bitwise operations
+        // check the checkmap and col_mask aren't yet set, if they are we have
+        // a duplicate number and we fail the column check
+        if ( ($sudoku_checkmap & $col_mask ) == 0) {
+          $sudoku_checkmap = $sudoku_checkmap | $col_mask;
+        } else {
+          return FALSE;
+        }
+
+      }
+    }
+  }
+  return TRUE;
+}
+
+/**
+ * Helper function to return boolean result on a 3x3 block in the matrix
+ *
+ * @param array $sudoku
+ *
+ * @param $sudoku_map
+ *
+ * @return bool
+ *    TRUE or FALSE whether the blocks checkout
+ *
+ */
+function check_sudoku_blocks(array $sudoku) {
+
+  // We setup the X and Y coordinates
+  $x = $y = 0;
+
+  // check all cols for any duplicate values between 1 and 9
+  for ($block = 0; $block < 9; $block++) {
+
+    // We setup the block X and Y coordinate
+    // the following ensures we get the x value for 1,2,3 & 4,5,6 & 7,8,9
+    $x = floor($block / 3) * 3;
+    // and the same in the y
+    $y = ($block % 3) * 3;
+    // This allows us to move through the blocks in chuncks of 9 squares 9 times
+
+    // instantiate a map table to note where false entries are.
+    $sudoku_checkmap = 0;
+
+    for ($col = $x; $col < $x +3; $col++) {
+      for ($row = $y; $row < $y + 3; $row++) {
+
+        $check_num = $sudoku[$row][$col];
+
+        // let's check to ensure values in the matrix are in fact integer between 1 and 9
+        if ((1 <= $check_num) && ($check_num <= 9)) {
+
+          // fill the mask block with bit values between 1 and 9
+          $block_mask = (int) pow(2, $check_num);
+
+          // now we do some bitwise operations
+          // check the checkmap and block_mask aren't yet set, if they are we have
+          // a duplicate number and we fail the block check
+          if (($sudoku_checkmap & $block_mask) == 0) {
+            $sudoku_checkmap = $sudoku_checkmap | $block_mask;
+          }
+          else {
+            return FALSE;
+          }
+
+        }
+      }
+    }
+  }
+  return TRUE;
+}

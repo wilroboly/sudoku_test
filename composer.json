@@ -1,0 +1,14 @@
+{
+  "name": "drupal/sudoku_tester",
+  "type": "drupal-module",
+  "description": "A simple sudoku matrix tester",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/sudoku_tester",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/sudoku_tester",
+    "source": "http://cgit.drupalcode.org/sudoku_tester"
+  },
+  "require": { }
+}

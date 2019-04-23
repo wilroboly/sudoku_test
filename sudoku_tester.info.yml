@@ -1,0 +1,5 @@
+name: 'sudoku tester'
+type: module
+description: 'A simple sudoku matrix tester'
+core: 8.x
+package: 'Custom'
