@@ -1,10 +1,10 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: wilco
- * Date: 2019-04-30
- * Time: 09:44
+ * @file
+ * The main file for the sudoku tester applet.
  */
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Classes\Sudoku;
@@ -19,9 +19,9 @@ $invalid_sudoku = [
   'F,o,o,b,a,r,foo,bar,foobar',
   'F,o,o,foo,bar,foobar,b,a,r',
   'foo,bar,foobar,b,a,r,F,o,o',
-  ];
+];
 
-/** @var ARRAY $sudoku */
+/* @var $sudoku */
 $sudoku = new Sudoku($invalid_sudoku);
 
-// echo $sudoku->isSudoku();
+echo $sudoku->isSudoku()? "PASSED" : "DID NOT PASS!";

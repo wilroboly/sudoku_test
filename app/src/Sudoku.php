@@ -1,20 +1,33 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: wilco
- * Date: 2019-04-30
- * Time: 09:44
- */
 
 namespace Classes;
 
-class Sudoku {
+/**
+ * The Sudoku Class to check matrix and mask against.
+ *
+ * @package Classes
+ */
+class Sudoku
+{
 
-  public $sudoku_matrix;
+  private $sudokuMatrix;
 
   private $mask;
 
-  function __construct($sudoku) {
-    $this->sudoku_matrix = $sudoku;
+  /**
+   * Sudoku constructor.
+   *
+   * @param array $sudoku
+   *   The valid or invalid sudoku matrix which will be evaluated.
+   */
+  public function __construct(array $sudoku) {
+    $this->$sudokuMatrix = $sudoku;
+  }
+
+  /**
+   * Method used to instantiate the check routine for the sudoku matrix.
+   */
+  public function isSudoku() {
+    return FALSE;
   }
 }
