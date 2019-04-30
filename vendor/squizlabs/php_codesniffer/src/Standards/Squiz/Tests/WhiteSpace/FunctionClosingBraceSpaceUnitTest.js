@@ -85,7 +85,7 @@ var myFunc = function()
 
     return x;
 
-}
+};
 
 a.prototype = {
 

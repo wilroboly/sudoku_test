@@ -42,7 +42,7 @@ AnotherSampleWidgetType.prototype = {
 
     create: function(input)
     {
-        return;
+
     }
 
     getSomething: function(input)
@@ -57,7 +57,7 @@ NoCreateWidgetType.prototype = {
 
     getSomething: function(input)
     {
-        return;
+
     }
 
 };
@@ -67,7 +67,7 @@ SomeRandom.prototype = {
 
     create: function(input)
     {
-        return;
+
     }
 
 };
@@ -150,7 +150,7 @@ SampleWidgetType.prototype = {
     {
         if (dfx.isFn(callback) === true) {
             callback.call(this, cont);
-            return;
+
         }
     }
 
@@ -179,7 +179,7 @@ SampleWidgetType.prototype = {
         var self = this;
         this.createChildren(null, function() {
             callback.call(self, div);
-            return;
+
         });
     }
 

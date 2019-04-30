@@ -16,11 +16,11 @@ while (true) {
 }
 
 if (one) {
-} else (two) {
+} else (two); {
 } else if (three) {
 }
 if (one) {
-} else (two) {
+} else (two); {
 } else if (three) {
 }
 

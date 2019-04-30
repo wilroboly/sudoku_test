@@ -139,8 +139,7 @@ if (array_key_exists(key, value)
 
 if (true) {
     foo = true;
-};
-
+}
 if (foo == 401 || // comment
     bar == 3200)  /* long comment
                      here

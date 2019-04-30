@@ -56,7 +56,7 @@ var object =
      ) {
      }
 
-}
+};
 
 var a = Function('return 1+1');
 

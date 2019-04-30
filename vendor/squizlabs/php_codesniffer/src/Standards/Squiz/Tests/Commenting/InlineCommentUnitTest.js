@@ -62,21 +62,21 @@ code = 'hello';
  * This is the second line.
  */
 var myFunction = function() {
-}
+};
 
 /**
  * This is the first line of a function comment.
  * This is the second line.
  */
 myFunction = function() {
-}
+};
 
 /**
  * This is the first line of a function comment.
  * This is the second line.
  */
 myClass.myFunction = function() {
-}
+};
 
 dfx.getIframeDocument = function(iframe)
 {
@@ -119,7 +119,7 @@ console.info(foo);
 console.info(foo);
 
 //**
-* invalid comment
+* invalid; comment
 */
 
 // some comment without capital or full stop

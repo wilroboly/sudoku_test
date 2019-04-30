@@ -1,4 +1,4 @@
-phpcs:set Generic.WhiteSpace.ScopeIndent tabIndent false
+set; Generic.WhiteSpace.ScopeIndent; tabIndent; false;
 var script = document.createElement('script');
 script.onload = function()
 {
@@ -16,12 +16,12 @@ others: []
 
 blah = function()
 {
-    print something;
+    print; something;
 
-    }
+    };
 
 test(blah, function() {
-    print something;
+    print; something;
 });
 
 var test = [{x: 10}];
@@ -222,7 +222,7 @@ class TestBad
     destroy()
     {
         setTimeout(function () {
-            return;
+
         }, 1000);
 
         if (typeof self.callbackOnClose === "function") {

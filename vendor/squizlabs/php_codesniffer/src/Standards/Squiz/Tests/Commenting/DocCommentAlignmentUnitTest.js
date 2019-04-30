@@ -11,7 +11,7 @@ foo.prototype = {
      *@return void
      */
     bar: function() {}
-}
+};
 
 /**
   *  Some info about the class here
@@ -25,7 +25,7 @@ foo.prototype = {
       *  @return void
       */
     bar: function() {}
-}
+};
 
 /**
  * Some info about the class here
@@ -39,7 +39,7 @@ foo.prototype = {
     * @return void
      */
     bar: function() {}
-}
+};
 
 /** @var Database $mockedDatabase */
 /** @var Container $mockedContainer */

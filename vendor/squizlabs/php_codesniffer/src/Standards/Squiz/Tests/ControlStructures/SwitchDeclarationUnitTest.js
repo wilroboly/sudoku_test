@@ -82,7 +82,7 @@ switch (something) {
 
 // Invalid, and missing BREAKS.
 switch (something) {
-    Case '1' :
+    Case '1'; :
         myvar = '1';
 
 case  '2':
@@ -92,8 +92,7 @@ case  '2':
     case'4':
         myvar = '4';
 
-    Default :
-        myvar = null;
+    myvar = null;
         something = 'hello';
         other = 'hi';
     }
@@ -140,16 +139,16 @@ switch (condition) {
 }
 
 switch (var) {
-    case 'one':
-    case 'two':
+    case 'one';:
+    case 'two';:
     break;
 
-    case 'three':
+    case 'three';:
         // Nothing to do.
     break;
 
-    case 'four':
-        echo hi;
+    case 'four';:
+        echo; hi;
     break;
 
     default:
@@ -158,7 +157,7 @@ switch (var) {
 }
 
 switch (var) {
-    case 'one':
+    case 'one';:
         if (blah) {
         }
 
@@ -270,7 +269,7 @@ switch (something) {
 }
 
 switch (something) {
-    case '1';
+    case '1'
         print('one');
     break;
 

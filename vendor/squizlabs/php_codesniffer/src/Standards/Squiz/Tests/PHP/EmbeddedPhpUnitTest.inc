@@ -91,7 +91,7 @@ echo 'goodbye';
 function foo()
 {
 
-    ?><a onClick="Javascript: set_hidden_field('<?php echo $link_offset - $num_per_page; ?>'); set_hidden_field('process_form', '0'); submit_form(); return false;"><?php
+    ?><a onClick="set_hidden_field('<?php echo $link_offset - $num_per_page; ?>'); set_hidden_field('process_form', '0'); submit_form(); return false;"><?php
 
 }
 

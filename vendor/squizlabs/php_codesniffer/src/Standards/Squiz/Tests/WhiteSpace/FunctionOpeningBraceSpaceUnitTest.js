@@ -60,7 +60,7 @@ function test() {
     var y = function()
     {
         alert(1);
-    }
+    };
 
     return x;
 
@@ -79,7 +79,7 @@ var myFunc = function()
 
     return x;
 
-}
+};
 
 HelpWidgetType.prototype = {
     init: function() {
@@ -90,11 +90,11 @@ HelpWidgetType.prototype = {
 
             alert(3);
         }
-    }
+    };
     return x;
 
     }
-}
+};
 
 CustomFormEditWidgetType.prototype = {
 

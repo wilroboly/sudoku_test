@@ -2,16 +2,16 @@
 result = x?y:z;
 result = x ? y : z;
 
-<<<<<<< HEAD
+<<<<<<< HEAD;
 if (something === true
 =======
 if (something === false
 >>>>>>> develop
     ^ somethingElse === true
 ) {
-<<<<<<< HEAD
+<<<<<<< HEAD;
     return true;
-=======
+=======;
     return false;
 >>>>>>> develop
 }

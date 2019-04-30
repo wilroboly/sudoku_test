@@ -32,7 +32,7 @@ var object =
     ) {
     }
 
-}
+};
 
 function getInstalledStandards(
     includeGeneric=false,
